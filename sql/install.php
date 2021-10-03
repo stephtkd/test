@@ -25,6 +25,7 @@
 */
 $sql = array();
 
+
 $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'sbu_privilege_code` (
     `id_privilege_code` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
     `id_customer` INT(10) UNSIGNED NOT NULL,
@@ -33,9 +34,18 @@ $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'sbu_privilege_code` (
     PRIMARY KEY  (`id_privilege_code`)
 ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
 
+$sql[] = "ALTER TABLE `"._DB_PREFIX_."sbu_privilege_code` ADD `private_sponsor2` TINYINT DEFAULT 0 AFTER `privilege_code`";
+
+  
 
 foreach ($sql as $query) {
-    if (Db::getInstance()->execute($query) == false) {
-        return false;
-    }
+        error_log("executing query " . $query);
+
+if (Db::getInstance()->execute($query) == false) {
+        error_log("display error = ".Db::getInstance()->displayError());
+        error_log("get msg = ".Db::getInstance()->getMsgError());
+        error_log("query ko");
+            return false;
+        }
+        error_log("query ok");
 }

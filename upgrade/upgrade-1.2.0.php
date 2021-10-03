@@ -38,14 +38,16 @@ function upgrade_module_1_2_0($module)
      * Do everything you want right there,
      * You could add a column in one of your module's tables
      */
-    error_log("upgrade upgrade_module ".$module->name." - v".$module->version);
+   error_log("upgrade upgrade_module ici ok ".$module->name." - v".$module->version);
+return true;
+    $sql[] = "ALTER TABLE `"._DB_PREFIX_."sbu_privilege_code` ADD `private_sponsor` INT AFTER `privilege_code`";
 
-    $sql[] = "ALTER TABLE `"._DB_PREFIX_."sbu_privilege_code` ADD `private_sponsor` TINYINT NULL DEFAULT 0 AFTER `privilege_code`";
-    
     foreach ($sql as $query) {
+        error_log("query = $query");
         if (Db::getInstance()->execute($query) == false) {
-            return false;
+        error_log("display error = ".Db::getInstance()->displayError());
+        error_log("get msg = ".Db::getInstance()->getMsgError());
+            //return false;
         }
     }
-
 }
