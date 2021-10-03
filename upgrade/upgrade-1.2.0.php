@@ -40,7 +40,7 @@ function upgrade_module_1_2_0($module)
      */
     error_log("upgrade upgrade_module ".$module->name." - v".$module->version);
 
-    $sql[] = "ALTER TABLE `"._DB_PREFIX_."sbu_privilege_code` ADD `private_sponsor` TINYINT NULL DEFAULT '0' AFTER `privilege_code`";
+    $sql[] = "ALTER TABLE `"._DB_PREFIX_."sbu_privilege_code` ADD `private_sponsor` TINYINT NULL DEFAULT 0 AFTER `privilege_code`";
     
     foreach ($sql as $query) {
         if (Db::getInstance()->execute($query) == false) {
